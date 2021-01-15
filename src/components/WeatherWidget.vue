@@ -1,23 +1,19 @@
 <template>
-  <div :class="$style.app">
-    <WeatherWidget />
+  <div :class="$style.weather">
+    Weather Widget
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import WeatherWidget from './components/WeatherWidget.vue';
 
 export default Vue.extend({
-  name: 'App',
-  components: {
-    WeatherWidget,
-  },
+  name: 'WeatherWidget',
 });
 </script>
 
 <style lang="scss" module>
-.app {
+.weather {
   position: relative;
 }
 </style>
