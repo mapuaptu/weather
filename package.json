@@ -6,6 +6,7 @@
     "debug": "start chrome http://localhost:8080/ --remote-debugging-port=9222 --inspect --debug-brk",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:component": "vue-cli-service build --target wc --inline-vue src/components/*.vue",
     "lint": "vue-cli-service lint",
     "stylelint": "./node_modules/.bin/stylelint ./src/**/*.{scss,vue} --fix"
   },
