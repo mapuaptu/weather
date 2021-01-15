@@ -5,30 +5,15 @@
 Insert code below to you site.
 
 ```html
-<script src="https://raw.githubusercontent.com/mapuaptu/weather/dist/weather-widget.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/mapuaptu/weather/dist/weather-widget.min.js"></script>
 
 <weather-widget></weather-widget>
 ```
 
-## Project setup
-```
-npm install
-```
+## How to build component
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+For build a component type command below. Then in dist folder you can find a separate js files.
 
-### Compiles and minifies for production
 ```
-npm run build
+npm run build:component
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
