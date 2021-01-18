@@ -1,10 +1,11 @@
 <template>
   <div :class="$style.weather">
     Weather Widget
-    <div>{{ getInitial }}</div>
-    <div @click="setInitial(false)">
-      set initial
-    </div>
+    <WeatherItem
+      v-for="city in getCities"
+      :key="city.id"
+      :data="city"
+    />
     <div>{{ error }}</div>
   </div>
 </template>
@@ -14,10 +15,14 @@ import Vue from 'vue';
 import store from '@/store/weather';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import getCurrentCoordinates from '@/helpers/index';
+import WeatherItem from '@/components/WeatherWidget/WeatherItem.vue';
 
 export default Vue.extend({
   name: 'WeatherWidget',
   store,
+  components: {
+    WeatherItem,
+  },
   data() {
     return {
       error: '',
