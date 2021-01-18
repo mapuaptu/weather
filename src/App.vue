@@ -19,5 +19,10 @@ export default Vue.extend({
 <style lang="scss" module>
 .app {
   position: relative;
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+  min-height: 100vh;
+  background-color: rgb(51, 107, 153);
 }
 </style>
