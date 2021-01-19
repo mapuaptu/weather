@@ -17,15 +17,30 @@
     <div :class="$style.description">
       Feels like {{ data.main.feels_like }}&#8451;.
       {{ data.weather[0].main }},
-      {{ data.weather[0].description }}
+      {{ data.weather[0].description }}.
     </div>
 
     <div :class="$style.values">
       <div :class="$style.item">
+        <Icon
+          icon="navigation"
+          :width="20"
+          :height="20"
+          :class="$style.icon"
+          :style="{ 'transform': `rotate(${data.wind.deg}deg)` }"
+        />
+
         {{ data.wind.speed }}ms/s SSE
       </div>
 
       <div :class="$style.item">
+        <Icon
+          icon="gauge"
+          :width="20"
+          :height="20"
+          :class="$style.icon"
+        />
+
         {{ data.main.pressure }}hPa
       </div>
 
@@ -48,9 +63,13 @@
 
 <script lang="ts">
 import Vue from 'vue';
+import Icon from '@/components/common/Icon.vue';
 
 export default Vue.extend({
   name: 'WeatherItem',
+  components: {
+    Icon,
+  },
   props: {
     data: {
       type: Object,
@@ -66,9 +85,13 @@ export default Vue.extend({
 .weatherItem {
   position: relative;
   border-radius: 5px;
-  padding: 20px;
+  padding: 50px 40px 35px;
   width: 350px;
   background-color: $color-white;
+
+  &:not(:last-child) {
+    margin-bottom: 40px;
+  }
 
   .name {
     margin-bottom: 30px;
@@ -95,8 +118,14 @@ export default Vue.extend({
     flex-flow: row wrap;
 
     .item {
+      display: flex;
+      align-items: center;
       margin-bottom: 15px;
       width: 50%;
+
+      .icon {
+        margin-right: 5px;
+      }
     }
   }
 }

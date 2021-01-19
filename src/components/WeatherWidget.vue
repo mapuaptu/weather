@@ -1,9 +1,14 @@
 <template>
   <div :class="$style.weather">
-    Weather Widget
     <WeatherItem
       v-for="city in getCities"
       :key="city.id"
+      :data="city"
+    />
+
+    <WeatherItem
+      v-for="city in getCities"
+      :key="city.id + 2"
       :data="city"
     />
     <div>{{ error }}</div>
