@@ -20,6 +20,7 @@ export default Vue.extend({
 .app {
   position: relative;
   display: flex;
+  align-items: flex-start;
   justify-content: center;
   padding-top: 50px;
   min-height: 100vh;

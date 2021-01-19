@@ -1,5 +1,27 @@
 <template>
   <div :class="$style.weather">
+    <Icon
+      icon="settings"
+      :width="30"
+      :height="30"
+      :class="$style.settingsButton"
+      @click="settingsIsOpen = true"
+    />
+
+    <div
+      v-if="settingsIsOpen"
+      :class="$style.settings"
+    >
+      <Icon
+        icon="close"
+        :width="30"
+        :height="30"
+        :class="$style.close"
+        @click="settingsIsOpen = false"
+      />
+      settings
+    </div>
+
     <WeatherItem
       v-for="city in getCities"
       :key="city.id"
@@ -11,7 +33,9 @@
       :key="city.id + 2"
       :data="city"
     />
-    <div>{{ error }}</div>
+    <div v-if="error">
+      {{ error }}
+    </div>
   </div>
 </template>
 
@@ -21,15 +45,18 @@ import store from '@/store/weather';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import getCurrentCoordinates from '@/helpers/index';
 import WeatherItem from '@/components/WeatherWidget/WeatherItem.vue';
+import Icon from '@/components/common/Icon.vue';
 
 export default Vue.extend({
   name: 'WeatherWidget',
   store,
   components: {
     WeatherItem,
+    Icon,
   },
   data() {
     return {
+      settingsIsOpen: false,
       error: '',
     };
   },
@@ -63,7 +90,46 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" module>
+@import '@/styles/variables.scss';
+
 .weather {
   position: relative;
+
+  .settingsButton {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    z-index: 10;
+    transition: $transition;
+    cursor: pointer;
+
+    &:hover {
+      opacity: $opacity;
+    }
+  }
+
+  .settings {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 11;
+    border-radius: $border-radius;
+    padding: 40px;
+    background-color: $color-white;
+
+    .close {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      transition: $transition;
+      cursor: pointer;
+
+      &:hover {
+        opacity: $opacity;
+      }
+    }
+  }
 }
 </style>

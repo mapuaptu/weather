@@ -84,7 +84,7 @@ export default Vue.extend({
 
 .weatherItem {
   position: relative;
-  border-radius: 5px;
+  border-radius: $border-radius;
   padding: 50px 40px 35px;
   width: 350px;
   background-color: $color-white;
