@@ -1,6 +1,7 @@
 <template>
   <div :class="$style.weather">
     <Icon
+      v-if="!settingsIsOpen"
       icon="settings"
       :width="30"
       :height="30"
@@ -8,19 +9,19 @@
       @click="settingsIsOpen = true"
     />
 
-    <div
-      v-if="settingsIsOpen"
-      :class="$style.settings"
-    >
+    <template v-else>
       <Icon
         icon="close"
         :width="30"
         :height="30"
-        :class="$style.close"
+        :class="$style.closeButton"
         @click="settingsIsOpen = false"
       />
-      settings
-    </div>
+
+      <WeatherMenu
+        :data="getCities"
+      />
+    </template>
 
     <WeatherItem
       v-for="city in getCities"
@@ -28,11 +29,6 @@
       :data="city"
     />
 
-    <WeatherItem
-      v-for="city in getCities"
-      :key="city.id + 2"
-      :data="city"
-    />
     <div v-if="error">
       {{ error }}
     </div>
@@ -44,15 +40,17 @@ import Vue from 'vue';
 import store from '@/store/weather';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import getCurrentCoordinates from '@/helpers/index';
-import WeatherItem from '@/components/WeatherWidget/WeatherItem.vue';
 import Icon from '@/components/common/Icon.vue';
+import WeatherItem from '@/components/WeatherWidget/WeatherItem.vue';
+import WeatherMenu from '@/components/WeatherWidget/WeatherMenu.vue';
 
 export default Vue.extend({
   name: 'WeatherWidget',
   store,
   components: {
-    WeatherItem,
     Icon,
+    WeatherItem,
+    WeatherMenu,
   },
   data() {
     return {
@@ -108,27 +106,16 @@ export default Vue.extend({
     }
   }
 
-  .settings {
+  .closeButton {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 11;
-    border-radius: $border-radius;
-    padding: 40px;
-    background-color: $color-white;
+    right: 20px;
+    top: 20px;
+    z-index: 12;
+    transition: $transition;
+    cursor: pointer;
 
-    .close {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      transition: $transition;
-      cursor: pointer;
-
-      &:hover {
-        opacity: $opacity;
-      }
+    &:hover {
+      opacity: $opacity;
     }
   }
 }

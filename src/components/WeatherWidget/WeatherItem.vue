@@ -85,7 +85,7 @@ export default Vue.extend({
 .weatherItem {
   position: relative;
   border-radius: $border-radius;
-  padding: 50px 40px 35px;
+  padding: 25px 40px;
   width: 350px;
   background-color: $color-white;
 
@@ -111,17 +111,20 @@ export default Vue.extend({
 
   .description {
     margin-bottom: 30px;
+    font-size: 15px;
   }
 
   .values {
     display: flex;
     flex-flow: row wrap;
+    justify-content: space-between;
 
     .item {
       display: flex;
       align-items: center;
       margin-bottom: 15px;
       width: 50%;
+      font-size: 15px;
 
       .icon {
         margin-right: 5px;

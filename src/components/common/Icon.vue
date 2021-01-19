@@ -92,6 +92,37 @@
         :fill="fill"
       />
     </svg>
+
+    <svg
+      v-if="icon === 'menu'"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="1.1"
+      :width="width"
+      :height="height"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"
+        :fill="fill"
+      />
+    </svg>
+
+    <svg
+      v-if="icon === 'trash'"
+      xmlns="http://www.w3.org/2000/svg"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      version="1.1"
+      :width="width"
+      :height="height"
+      viewBox="0 0 24 24"
+    >
+      <path
+        :d="`M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,
+        6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z`"
+        :fill="fill"
+      />
+    </svg>
   </div>
 </template>
 
