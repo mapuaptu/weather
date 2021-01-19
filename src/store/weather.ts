@@ -27,7 +27,7 @@ export default new Vuex.Store({
   actions: {
     async loadDataFromCoordinates({ commit }, { latitude, longitude }) {
       try {
-        const response = await fetch(`${API}lat=${latitude}&lon=${longitude}&appid=${APIKEY}`);
+        const response = await fetch(`${API}lat=${latitude}&lon=${longitude}&units=metric&appid=${APIKEY}`);
         const data = await response.json();
 
         commit('setCities', [data]);
@@ -39,8 +39,10 @@ export default new Vuex.Store({
     },
     async loadDataFromCityName(_, city) {
       try {
-        const response = await fetch(`${API}q=${city}&appid=${APIKEY}`);
+        const response = await fetch(`${API}q=${city}&units=metric&appid=${APIKEY}`);
         const data = await response.json();
+
+        console.log(data);
 
         return data;
       } catch (error) {
