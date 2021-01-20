@@ -23,6 +23,9 @@ export default new Vuex.Store({
     setCities(state, payload) {
       state.cities = payload;
     },
+    deleteCity(state, payload) {
+      state.cities = state.cities.filter((city: { name: string }) => city.name !== payload);
+    },
   },
   actions: {
     async loadDataFromCoordinates({ commit }, { latitude, longitude }) {
@@ -45,8 +48,6 @@ export default new Vuex.Store({
         if (!response.ok) {
           return { error: response.statusText };
         }
-
-        console.log(data);
 
         return data;
       } catch (error) {

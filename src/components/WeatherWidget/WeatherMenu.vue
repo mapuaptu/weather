@@ -27,6 +27,7 @@
         :width="20"
         :height="20"
         :class="$style.delete"
+        @click="deleteCity(city.name)"
       />
     </div>
 
@@ -93,7 +94,7 @@ export default Vue.extend({
     ...mapGetters(['getCities']),
   },
   methods: {
-    ...mapMutations(['setCities']),
+    ...mapMutations(['setCities', 'deleteCity']),
     ...mapActions(['loadDataFromCityName']),
     async addCity() {
       this.error = '';

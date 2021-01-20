@@ -30,6 +30,13 @@
       />
     </template>
 
+    <div
+      v-if="!getCities.length"
+      :class="$style.empty"
+    >
+      Click on setting button to add some city
+    </div>
+
     <div v-if="error">
       {{ error }}
     </div>
@@ -119,6 +126,12 @@ export default Vue.extend({
     &:hover {
       opacity: $opacity;
     }
+  }
+
+  .empty {
+    border-radius: $border-radius;
+    padding: 25px 40px;
+    background-color: $color-white;
   }
 }
 </style>
