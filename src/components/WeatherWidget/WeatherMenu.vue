@@ -4,32 +4,39 @@
       Settings
     </div>
 
-    <div
-      v-for="city in data"
-      :key="city.name"
-      :class="$style.item"
+    <draggable
+      :value="getCities"
+      handle=".drag"
+      @input="setCities"
     >
-      <div :class="$style.left">
+      <div
+        v-for="city in data"
+        :key="city.name"
+        :class="$style.item"
+      >
+        <div :class="$style.left">
+          <Icon
+            icon="menu"
+            :width="20"
+            :height="20"
+            :class="$style.drag"
+            class="drag"
+          />
+
+          <div :class="$style.name">
+            {{ city.name }}, {{ city.sys.country }}
+          </div>
+        </div>
+
         <Icon
-          icon="menu"
+          icon="trash"
           :width="20"
           :height="20"
-          :class="$style.drag"
+          :class="$style.delete"
+          @click="deleteCity(city.name)"
         />
-
-        <div :class="$style.name">
-          {{ city.name }}, {{ city.sys.country }}
-        </div>
       </div>
-
-      <Icon
-        icon="trash"
-        :width="20"
-        :height="20"
-        :class="$style.delete"
-        @click="deleteCity(city.name)"
-      />
-    </div>
+    </draggable>
 
     <div :class="$style.addCity">
       <div :class="$style.title">
@@ -71,12 +78,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import Icon from '@/components/common/Icon.vue';
+import draggable from 'vuedraggable';
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default Vue.extend({
   name: 'WeatherMenu',
   components: {
     Icon,
+    draggable,
   },
   props: {
     data: {
@@ -102,8 +111,11 @@ export default Vue.extend({
       const result = await this.loadDataFromCityName(this.location);
 
       if (result.error) {
-        // eslint-disable-next-line
         return this.error = result.error;
+      }
+
+      if (this.getCities.some((city: { name: string }) => city.name === result.name)) {
+        return this.error = 'This city already added';
       }
 
       this.setCities([...this.getCities, result]);
@@ -185,6 +197,11 @@ export default Vue.extend({
       background: none;
       transition: $transition;
       cursor: pointer;
+
+      &:active,
+      &:focus {
+        outline: none;
+      }
 
       &:hover {
         opacity: $opacity;
