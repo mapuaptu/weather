@@ -29,6 +29,26 @@
         :class="$style.delete"
       />
     </div>
+
+    <div :class="$style.addCity">
+      <div :class="$style.title">
+        Add location
+      </div>
+
+      <div :class="$style.controls">
+        <input
+          type="text"
+          :class="$style.input"
+        >
+
+        <Icon
+          icon="enter"
+          :width="35"
+          :height="35"
+          :class="$style.button"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -87,6 +107,32 @@ export default {
 
     .drag,
     .delete {
+      transition: $transition;
+      cursor: pointer;
+
+      &:hover {
+        opacity: $opacity;
+      }
+    }
+  }
+
+  .addCity {
+    margin-top: 40px;
+
+    .controls {
+      display: flex;
+      align-items: center;
+    }
+
+    .input {
+      flex: 1 0 auto;
+      border: 1px solid $color-black;
+      border-radius: $border-radius;
+      padding: 10px;
+      height: 35px;
+    }
+
+    .button {
       transition: $transition;
       cursor: pointer;
 
