@@ -42,6 +42,10 @@ export default new Vuex.Store({
         const response = await fetch(`${API}q=${city}&units=metric&appid=${APIKEY}`);
         const data = await response.json();
 
+        if (!response.ok) {
+          return { error: response.statusText };
+        }
+
         console.log(data);
 
         return data;

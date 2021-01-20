@@ -23,6 +23,7 @@ export default Vue.extend({
   align-items: flex-start;
   justify-content: center;
   padding-top: 50px;
+  padding-bottom: 50px;
   min-height: 100vh;
   background-color: rgb(51, 107, 153);
 }

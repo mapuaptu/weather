@@ -86,7 +86,6 @@ export default Vue.extend({
   position: relative;
   border-radius: $border-radius;
   padding: 25px 40px;
-  width: 350px;
   background-color: $color-white;
 
   &:not(:last-child) {

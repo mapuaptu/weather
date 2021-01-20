@@ -6,7 +6,7 @@
 
     <div
       v-for="city in data"
-      :key="city.id"
+      :key="city.name"
       :class="$style.item"
     >
       <div :class="$style.left">
@@ -35,27 +35,44 @@
         Add location
       </div>
 
-      <div :class="$style.controls">
+      <form
+        :class="$style.controls"
+        @submit.prevent
+      >
         <input
+          v-model="location"
           type="text"
           :class="$style.input"
         >
 
-        <Icon
-          icon="enter"
-          :width="35"
-          :height="35"
+        <button
           :class="$style.button"
-        />
+          @click="addCity"
+        >
+          <Icon
+            icon="enter"
+            :width="35"
+            :height="35"
+          />
+        </button>
+      </form>
+
+      <div
+        v-if="error"
+        :class="$style.error"
+      >
+        {{ error }}
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
 import Icon from '@/components/common/Icon.vue';
+import { mapGetters, mapMutations, mapActions } from 'vuex';
 
-export default {
+export default Vue.extend({
   name: 'WeatherMenu',
   components: {
     Icon,
@@ -66,7 +83,34 @@ export default {
       default: () => [],
     },
   },
-};
+  data() {
+    return {
+      location: '',
+      error: '',
+    };
+  },
+  computed: {
+    ...mapGetters(['getCities']),
+  },
+  methods: {
+    ...mapMutations(['setCities']),
+    ...mapActions(['loadDataFromCityName']),
+    async addCity() {
+      this.error = '';
+
+      const result = await this.loadDataFromCityName(this.location);
+
+      if (result.error) {
+        // eslint-disable-next-line
+        return this.error = result.error;
+      }
+
+      this.setCities([...this.getCities, result]);
+
+      return result;
+    },
+  },
+});
 </script>
 
 <style lang="scss" module>
@@ -77,7 +121,6 @@ export default {
   left: 0;
   right: 0;
   top: 0;
-  bottom: 0;
   z-index: 11;
   border-radius: $border-radius;
   padding: 25px;
@@ -94,6 +137,10 @@ export default {
     border-radius: $border-radius;
     padding: 10px;
     background-color: $color-gray;
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
 
     .left {
       display: flex;
@@ -133,6 +180,8 @@ export default {
     }
 
     .button {
+      border: none;
+      background: none;
       transition: $transition;
       cursor: pointer;
 
@@ -140,6 +189,11 @@ export default {
         opacity: $opacity;
       }
     }
+  }
+
+  .error {
+    margin-top: 20px;
+    font-size: 15px;
   }
 }
 

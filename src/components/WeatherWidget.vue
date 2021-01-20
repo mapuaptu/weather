@@ -1,13 +1,20 @@
 <template>
   <div :class="$style.weather">
-    <Icon
-      v-if="!settingsIsOpen"
-      icon="settings"
-      :width="30"
-      :height="30"
-      :class="$style.settingsButton"
-      @click="settingsIsOpen = true"
-    />
+    <template v-if="!settingsIsOpen">
+      <Icon
+        icon="settings"
+        :width="30"
+        :height="30"
+        :class="$style.settingsButton"
+        @click="settingsIsOpen = true"
+      />
+
+      <WeatherItem
+        v-for="city in getCities"
+        :key="city.name"
+        :data="city"
+      />
+    </template>
 
     <template v-else>
       <Icon
@@ -22,12 +29,6 @@
         :data="getCities"
       />
     </template>
-
-    <WeatherItem
-      v-for="city in getCities"
-      :key="city.id"
-      :data="city"
-    />
 
     <div v-if="error">
       {{ error }}
@@ -92,6 +93,7 @@ export default Vue.extend({
 
 .weather {
   position: relative;
+  width: 350px;
 
   .settingsButton {
     position: absolute;
